@@ -1,3 +1,4 @@
+
 plugins {
     id(Plugins.androidLibrary)
     kotlin(Plugins.android)
@@ -18,7 +19,9 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        dataBinding = true
     }
+
     lint {
         isAbortOnError = false
     }
@@ -66,7 +69,6 @@ dependencies {
     // When using a MDC theme
     implementation("com.google.android.material:compose-theme-adapter:1.0.4")
     implementation("androidx.compose.material:material-icons-extended:1.0.4")
-
     // 3rd party libraries
     implementation(Libraries.koinAndroid)
     implementation(Libraries.glide)
