@@ -6,7 +6,7 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "app-news"
+rootProject.name = "marvel-app"
 include ':app'
 include ':data-layer'
 include ':domain-layer'
