@@ -8,15 +8,22 @@ import retrofit2.Retrofit
 
 private const val HASH = "751d116d30cb878c764d95954fc8eef4"
 private const val TS = "1"
-
-
+private const val LIMIT = 100
 
 class CharacterDataSource(private val retrofit: Retrofit) :
     DataLayerContract.CharacterDataSource {
 
-    override suspend fun getCharacters(): Response<ResponseMarvelDto<CharacterDto>> =
-        retrofit.create(MarvelService::class.java).getAllCharactersAsync(
-            HASH,
-            TS
+    override suspend fun fetchCharacters(): Response<ResponseMarvelDto<CharacterDto>> =
+        retrofit.create(MarvelService::class.java).fetchCharactersAsync(
+            hash = HASH,
+            ts = TS,
+            limit = LIMIT
+        ).await()
+
+    override suspend fun fetchCharacterDetail(characterId: Int): Response<ResponseMarvelDto<CharacterDto>> =
+        retrofit.create(MarvelService::class.java).fetchCharacterDetailAsync(
+            characterId = characterId,
+            hash = HASH,
+            ts = TS
         ).await()
 }

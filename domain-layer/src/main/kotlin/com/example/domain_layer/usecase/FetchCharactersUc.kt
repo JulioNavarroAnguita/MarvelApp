@@ -8,9 +8,9 @@ import com.example.domain_layer.domain.FailureBo
 const val FETCH_CHARACTERS_UC_TAG = "fetchCharactersUc"
 
 class FetchCharactersUc(private val characterRepository: DomainLayerContract.DataLayer.CharacterRepository) :
-    DomainLayerContract.PresentationLayer.UseCase<Any?, List<CharacterBo>?> {
+    DomainLayerContract.PresentationLayer.UseCase<Any?, List<CharacterBo>> {
 
-    override suspend fun run(params: Any?): Either<FailureBo, List<CharacterBo>?> =
+    override suspend fun run(params: Any?): Either<FailureBo, List<CharacterBo>> =
         characterRepository.fetchCharacters()
 
 }

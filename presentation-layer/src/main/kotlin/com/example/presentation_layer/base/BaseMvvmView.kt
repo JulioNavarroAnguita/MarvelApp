@@ -14,9 +14,9 @@ import com.example.domain_layer.base.BaseDomainLayerBridge
  *
  */
 interface BaseMvvmView<T : BaseMvvmViewModel<S, U>, S : BaseDomainLayerBridge, U : BaseState> {
-    
+
     val viewModel: T?
-    
+
     /**
      * Handles the possible state values
      *
@@ -26,11 +26,11 @@ interface BaseMvvmView<T : BaseMvvmViewModel<S, U>, S : BaseDomainLayerBridge, U
 
 
     fun observeViewModel(lifecycleOwner: LifecycleOwner) {
-        viewModel?.screenState?.observe(lifecycleOwner, { screenState ->
+        viewModel?.screenState?.observe(lifecycleOwner) { screenState ->
             when (screenState) {
                 is ScreenState.Render<U> -> processRenderState(screenState.renderState)
             }
-        })
+        }
     }
-    
+
 }
