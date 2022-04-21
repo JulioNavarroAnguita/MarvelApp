@@ -20,5 +20,3 @@ fun ImageView.setImageFromUrlString(imageStringUrl: String?) {
 }
 
 
-
-

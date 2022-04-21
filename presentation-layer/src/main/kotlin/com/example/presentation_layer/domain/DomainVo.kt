@@ -1,18 +1,19 @@
 package com.example.presentation_layer.domain
 
 import com.example.presentation_layer.R
+import java.io.Serializable
 
 data class CharacterVo(
     val id: Int,
     val name: String,
     val description: String,
     val thumbnail: ThumbnailVo
-)
+) : Serializable
 
 class ThumbnailVo(
     val path: String,
     val extension: String
-)
+) : Serializable
 
 sealed class FailureVo(val msgResource: Int) {
     object NoNetwork : FailureVo(msgResource = R.string.no_connection_error_msg)

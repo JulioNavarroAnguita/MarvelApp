@@ -5,9 +5,6 @@ import com.example.domain_layer.domain.*
 fun List<CharacterDto>.characterDtoToBo(): List<CharacterBo> =
     map { it.dtoToBo() }
 
-fun List<CharacterBo>.characterBoToDto(): List<CharacterDto> =
-    map { it.boToDto() }
-
 fun CharacterDto.dtoToBo(): CharacterBo =
     CharacterBo(
         id = id ?: -1,
@@ -33,24 +30,10 @@ fun DataDto<CharacterDto>.dtoToBo() : DataBo<CharacterBo> =
     )
 
 
-fun CharacterBo.boToDto(): CharacterDto =
-    CharacterDto(
-        id = id,
-        name = name,
-        description = description,
-        thumbnail = thumbnail.boToDto()
-    )
-
 fun ThumbnailDto.dtoToBo(): ThumbnailBo =
     ThumbnailBo(
         path = path ?: "",
         extension = extension ?: ""
-    )
-
-fun ThumbnailBo.boToDto(): ThumbnailDto =
-    ThumbnailDto(
-        path = path,
-        extension = extension
     )
 
 fun FailureDto.toFailureBo(): FailureBo = when (this) {

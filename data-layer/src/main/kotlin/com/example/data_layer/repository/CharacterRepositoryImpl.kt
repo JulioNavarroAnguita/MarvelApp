@@ -12,13 +12,24 @@ import com.example.domain_layer.domain.CharacterBo
 import com.example.domain_layer.domain.FailureBo
 
 class CharacterRepositoryImpl(
-    private val characterDataSource: DataLayerContract.CharacterDataSource) : DomainLayerContract.DataLayer.CharacterRepository {
+    private val characterDataSource: DataLayerContract.CharacterDataSource
+) : DomainLayerContract.DataLayer.CharacterRepository {
 
-    override suspend fun fetchCharacters(): Either<FailureBo, List<CharacterBo>?> {
-        val queryResponse = characterDataSource.getCharacters()
+    override suspend fun fetchCharacters(): Either<FailureBo, List<CharacterBo>> {
+        val queryResponse = characterDataSource.fetchCharacters()
         return if (queryResponse.isSuccessful) {
-            val comicsList = queryResponse.body()?.data?.results?.map { it.dtoToBo() }
-            comicsList?.let { comicsList.right() } ?: run{ FailureDto.UnexpectedFailure(queryResponse.code(),  queryResponse.message()).toFailureBo().left() }
+            val characterList = queryResponse.body()?.data?.results?.map { it.dtoToBo() }
+            characterList?.let { characterList.right() } ?: run{ FailureDto.UnexpectedFailure(queryResponse.code(),  queryResponse.message()).toFailureBo().left() }
+        } else {
+            FailureDto.UnexpectedFailure(queryResponse.code(),  queryResponse.message()).toFailureBo().left()
+        }
+    }
+
+    override suspend fun fetchCharacterDetail(params: Int): Either<FailureBo, CharacterBo> {
+        val queryResponse = characterDataSource.fetchCharacterDetail(params)
+        return if (queryResponse.isSuccessful) {
+            val characterDetail = queryResponse.body()?.data?.results?.first()?.dtoToBo()
+            characterDetail?.let { characterDetail.right() } ?: run{ FailureDto.UnexpectedFailure(queryResponse.code(),  queryResponse.message()).toFailureBo().left() }
         } else {
             FailureDto.UnexpectedFailure(queryResponse.code(),  queryResponse.message()).toFailureBo().left()
         }

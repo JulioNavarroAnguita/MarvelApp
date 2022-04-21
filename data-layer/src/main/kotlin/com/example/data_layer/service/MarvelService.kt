@@ -11,16 +11,18 @@ import retrofit2.http.Query
 interface MarvelService {
 
     @GET("characters")
-    fun getAllCharactersAsync(
-        @Query("hash") hash: String? = null,
-        @Query("ts") ts: String? = null
+    fun fetchCharactersAsync(
+        @Query("hash") hash: String,
+        @Query("ts") ts: String,
+        @Query("limit") limit: Int? = null
     ): Deferred<Response<ResponseMarvelDto<CharacterDto>>>
 
 
-    @GET("characters/{id}")
-    fun getCharacterByIdAsync(
-        @Path("id") id: Int? = null,
-        @Query("apikey") apikey: String? = null,
-    ): Deferred<Response<CharacterDto>>
+    @GET("characters/{characterId}")
+    fun fetchCharacterDetailAsync(
+        @Path("characterId") characterId: Int? = null,
+        @Query("hash") hash: String? = null,
+        @Query("ts") ts: String? = null
+    ): Deferred<Response<ResponseMarvelDto<CharacterDto>>>
 
 }

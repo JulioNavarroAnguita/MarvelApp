@@ -1,3 +1,5 @@
 package com.example.domain_layer.base
 
-interface BaseDomainLayerBridge
+interface BaseDomainLayerBridge {
+    object None : BaseDomainLayerBridge
+}

@@ -11,7 +11,8 @@ interface DataLayerContract {
         const val RETROFIT_TAG = "retrofit"
     }
     interface CharacterDataSource {
-        suspend fun getCharacters(): Response<ResponseMarvelDto<CharacterDto>>
+        suspend fun fetchCharacters(): Response<ResponseMarvelDto<CharacterDto>>
+        suspend fun fetchCharacterDetail(characterId: Int): Response<ResponseMarvelDto<CharacterDto>>
     }
 
 }

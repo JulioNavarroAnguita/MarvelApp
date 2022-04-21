@@ -20,7 +20,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-
 /**
  * This variable represents the 'data-layer' dependencies module to be used by Koin. It basically
  * includes repository and data-source definitions.
@@ -33,7 +32,7 @@ const val MARVEL_BASE_URL = "http://gateway.marvel.com/v1/public/"
 const val API_PUBLIC_KEY = "2be68cc0bc260f758fd401bb934bc4ca"
 private const val HASH = "751d116d30cb878c764d95954fc8eef4"
 
-val dataLayerModule = module(override = true) {
+val dataLayerModule = module {
     //repository
     single {
         CharacterRepositoryImpl(
@@ -48,7 +47,7 @@ val dataLayerModule = module(override = true) {
         CharacterDataSource(retrofit = get(named(name = RETROFIT_TAG)))
     }
     // retrofit
-    single<Retrofit>(named(name = RETROFIT_TAG)) {
+    single(named(name = RETROFIT_TAG)) {
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
