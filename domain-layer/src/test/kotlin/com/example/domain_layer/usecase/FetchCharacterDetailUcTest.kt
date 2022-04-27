@@ -1,57 +1,51 @@
 package com.example.domain_layer.usecase
 
-import arrow.core.Either
+import arrow.core.right
 import com.example.domain_layer.DomainLayerContract
-import com.example.domain_layer.di.domainLayerModule
 import com.example.domain_layer.domain.CharacterBo
-import com.example.domain_layer.domain.FailureBo
-import com.nhaarman.mockitokotlin2.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
-import org.junit.After
-import org.junit.Assert
+import com.example.domain_layer.domain.ThumbnailBo
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
-import org.koin.test.KoinTest
-import org.koin.test.inject
 
-@ExperimentalCoroutinesApi
-class FetchCharacterDetailUcTest : KoinTest {
+class FetchCharacterDetailUcTest {
 
-    private val fetchCharacterDetailUc: DomainLayerContract.PresentationLayer.UseCase<Int?, List<CharacterBo>>
-            by inject(named(name = FETCH_CHARACTER_DETAIL_UC_TAG))
+    @MockK
     private lateinit var mockRepository: DomainLayerContract.DataLayer.CharacterRepository
+    private lateinit var fetchCharacterDetailUc: FetchCharacterDetailUc
 
     @Before
     fun setUp() {
-        mockRepository = mock()
-        startKoin {
-            modules(
-                listOf(
-                    domainLayerModule,
-                    module {
-                        factory(named(name = DomainLayerContract.DataLayer.CHARACTER_REPOSITORY_TAG)) { mockRepository }
-                    }
-                )
-            )
-        }
-    }
-
-    @After
-    fun tearDown() {
-        stopKoin()
+        MockKAnnotations.init(this)
+        fetchCharacterDetailUc = FetchCharacterDetailUc(mockRepository)
     }
 
     @Test
-    fun `check if repository is called`() = runBlockingTest {
+    fun `check if repository is called`() = runBlocking {
+        // given
+        val request = mockk<Int>(relaxed = true)
+        coEvery { mockRepository.fetchCharacterDetail(any()) } returns getDummyCharacterBo().right()
         // when
-        fetchCharacterDetailUc.run(any())
+        fetchCharacterDetailUc.run(request)
         // then
-        verify(mockRepository).fetchCharacterDetail(any())
+        coVerify(exactly = 1) { mockRepository.fetchCharacterDetail(any()) }
     }
+
+    private fun getDummyCharacterBo() = CharacterBo(
+        id = -1,
+        name = "none",
+        description = "none",
+        thumbnail = getDummyThumbnailBo()
+    )
+
+    private fun getDummyThumbnailBo() = ThumbnailBo(
+        path = "none",
+        extension = "none"
+    )
 
 }
