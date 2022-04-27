@@ -23,9 +23,7 @@ class CharacterDetailActivity : AppCompatActivity(),
 
     private lateinit var viewBinding: ActivityCharacterDetailBinding
 
-    override val viewModel: CharacterDetailViewModel by viewModel {
-        parametersOf(getArguments())
-    }
+    override val viewModel: CharacterDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +31,7 @@ class CharacterDetailActivity : AppCompatActivity(),
         initModel()
         setContentView(viewBinding.root)
         initView()
-        viewModel.loadCharacterDetail()
+        viewModel.loadCharacterDetail(getArguments().id)
     }
 
     override fun onSupportNavigateUp(): Boolean {

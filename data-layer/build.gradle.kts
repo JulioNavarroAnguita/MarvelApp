@@ -51,16 +51,16 @@ dependencies {
     implementation(Libraries.encryptSharedPreferences)
     // testing dependencies - Unit Test
     testImplementation(Libraries.junit)
-    testImplementation(Libraries.mockitoKotlin)
     testImplementation(Libraries.kotlinCoroutinesTest)
 
     // koin testing tools
     testImplementation(Libraries.koinTest)
 
     // testing dependencies - Instrumentation Test
-    androidTestImplementation(Libraries.mockitoAndroid)
     androidTestImplementation(Libraries.testRunner)
     androidTestImplementation(Libraries.testRules)
+    testImplementation(Libraries.mockk)
+
 
     // koin testing tools
     androidTestImplementation(Libraries.koinTest) {

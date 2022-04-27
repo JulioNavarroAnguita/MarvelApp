@@ -79,16 +79,17 @@ object Libraries {
     // testing
     const val junit = "junit:junit:${Versions.junit}"
     const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlin}"
-    const val kotlinCoroutinesTest =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
+    const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     const val koinTest = "io.insert-koin:koin-test:${Versions.koin}"
     const val mockitoAndroid = "org.mockito:mockito-android:${Versions.mockitoAndroid}"
     const val testRunner = "androidx.test:runner:${Versions.androidxTestRunner}"
     const val testRules = "androidx.test:rules:${Versions.androidxTestRules}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
+    const val archCore = "androidx.arch.core:core-testing:${Versions.archCore}"
 
     private object Versions {
         // core & kotlin
-        const val coroutines = "1.3.9"
+        const val coroutines = "1.5.2"
         const val coroutinesAdapter = "0.9.2"
         const val stdLib = "1.4.10"
 
@@ -118,5 +119,8 @@ object Libraries {
         const val androidxTestRules = "1.3.0"
         const val mockitoAndroid = "3.2.4"
         const val mockitoKotlin = "2.1.0"
+        const val mockk = "1.12.2"
+        const val archCore = "2.1.0"
+
     }
 }

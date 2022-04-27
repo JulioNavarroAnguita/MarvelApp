@@ -13,8 +13,8 @@ dependencies {
     api(Libraries.arrowSyntax)
     // testing dependencies - Unit Test
     testImplementation(Libraries.junit)
-    testImplementation(Libraries.mockitoKotlin)
     testImplementation(Libraries.kotlinCoroutinesTest)
+    testImplementation(Libraries.mockk)
     // koin testing tools
     testImplementation(Libraries.koinTest)
 }

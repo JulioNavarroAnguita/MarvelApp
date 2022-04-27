@@ -74,14 +74,15 @@ dependencies {
     implementation(Libraries.glide)
     // testing dependencies - Unit Test
     testImplementation(Libraries.junit)
-    testImplementation(Libraries.mockitoKotlin)
     testImplementation(Libraries.kotlinCoroutinesTest)
+    implementation(Libraries.kotlinCoroutinesAndroid)
+    testImplementation(Libraries.mockk)
+    testImplementation(Libraries.archCore)
 
     // koin testing tools
     testImplementation(Libraries.koinTest)
 
     // testing dependencies - Instrumentation Test
-    androidTestImplementation(Libraries.mockitoAndroid)
     androidTestImplementation(Libraries.testRunner)
     androidTestImplementation(Libraries.testRules)
 
