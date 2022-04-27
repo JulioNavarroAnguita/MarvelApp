@@ -1,3 +1,4 @@
+
 plugins {
     id(Plugins.androidLibrary)
     kotlin(Plugins.android)
@@ -18,7 +19,9 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        dataBinding = true
     }
+
     lint {
         isAbortOnError = false
     }
@@ -66,20 +69,20 @@ dependencies {
     // When using a MDC theme
     implementation("com.google.android.material:compose-theme-adapter:1.0.4")
     implementation("androidx.compose.material:material-icons-extended:1.0.4")
-
     // 3rd party libraries
     implementation(Libraries.koinAndroid)
     implementation(Libraries.glide)
     // testing dependencies - Unit Test
     testImplementation(Libraries.junit)
-    testImplementation(Libraries.mockitoKotlin)
     testImplementation(Libraries.kotlinCoroutinesTest)
+    implementation(Libraries.kotlinCoroutinesAndroid)
+    testImplementation(Libraries.mockk)
+    testImplementation(Libraries.archCore)
 
     // koin testing tools
     testImplementation(Libraries.koinTest)
 
     // testing dependencies - Instrumentation Test
-    androidTestImplementation(Libraries.mockitoAndroid)
     androidTestImplementation(Libraries.testRunner)
     androidTestImplementation(Libraries.testRules)
 

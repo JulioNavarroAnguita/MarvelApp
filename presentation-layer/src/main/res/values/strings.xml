@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">presentation-layer</string>
+    <string name="no_data">No data</string>
+    <string name="no_connection_error_msg">No connection</string>
+    <string name="empty_list_search_explanation">Sem resultados de pesquisa</string>
+    <string name="try_again">Try again later</string>
+    <string name="complete_fields">Complete all fields</string>
+    <string name="search">Search</string>
+
 </resources>

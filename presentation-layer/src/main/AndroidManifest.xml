@@ -3,29 +3,24 @@
     package="com.example.presentation_layer">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application
-        android:allowBackup="true"
-        android:supportsRtl="true">
+    <application>
         <activity
-            android:name="MainActivity"
+            android:name=".feature.character_list.view.ui.CharacterListActivity"
+            android:exported="true"
             android:launchMode="singleTop"
-            android:screenOrientation="fullSensor"
-            android:exported="true">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MarveApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity
-            android:name=".feature.detail.view.ui.ApodDetailActivity"
-            android:screenOrientation="portrait" />
         <activity
-            android:name=".feature.fullscreen.view.view.FullScreenImageActivity"
-            android:screenOrientation="portrait" />-->
-
+            android:name=".feature.character_detail.view.ui.CharacterDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MarveApp"/>
     </application>
+
 
 </manifest>
