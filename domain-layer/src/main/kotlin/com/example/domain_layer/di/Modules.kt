@@ -38,7 +38,7 @@ val useCaseModule = module {
         GetCharactersFromDatabaseUc(characterRepository = get())
     }
     factory<DomainLayerContract.PresentationLayer.UseCase<Int, CharacterBo>>(named(name = GET_CHARACTER_DETAIL_FROM_DATABASE_UC_TAG)) {
-        GetCharacterFromDatabase(characterRepository = get())
+        GetCharacterFromDatabaseUc(characterRepository = get())
     }
 
 }

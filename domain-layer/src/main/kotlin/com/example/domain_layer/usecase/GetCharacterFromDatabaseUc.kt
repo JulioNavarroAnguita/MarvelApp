@@ -7,7 +7,7 @@ import com.example.domain_layer.domain.FailureBo
 
 const val GET_CHARACTER_DETAIL_FROM_DATABASE_UC_TAG = "getCharacterDetailFromDatabaseUc"
 
-class GetCharacterFromDatabase(private val characterRepository: DomainLayerContract.DataLayer.CharacterRepository) :
+class GetCharacterFromDatabaseUc(private val characterRepository: DomainLayerContract.DataLayer.CharacterRepository) :
     DomainLayerContract.PresentationLayer.UseCase<Int, CharacterBo> {
 
     override suspend fun run(params: Int): Either<FailureBo, CharacterBo> =
