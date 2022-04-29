@@ -22,7 +22,26 @@ class CharacterListViewModel(bridge: CharacterListDomainLayerBridge) :
         }
     }
 
+    fun onCharacterItemClicked(item: CharacterVo) {
+        _screenState.value = ScreenState.Render(CharacterListState.ShowCharacterDetail(item))
+    }
+
+    fun loadCharactersFromDatabase() {
+        viewModelScope.launch {
+            _screenState.value = ScreenState.Loading
+            bridge.getCharactersFromDataBase().fold(::handleError, ::getCharactersFromDatabaseSuccess)
+        }
+    }
+
     private fun handleSuccess(list: List<CharacterBo>?) {
+        if (list.isNullOrEmpty()) {
+            loadCharactersFromDatabase()
+        } else {
+            _screenState.value = ScreenState.Render(CharacterListState.ShowCharacterList(list.characterBoToVo()))
+        }
+    }
+
+    private fun getCharactersFromDatabaseSuccess(list: List<CharacterBo>) {
         _screenState.value = if (list.isNullOrEmpty()) {
             ScreenState.Render(CharacterListState.NoData)
         } else {
@@ -35,7 +54,4 @@ class CharacterListViewModel(bridge: CharacterListDomainLayerBridge) :
             ScreenState.Render(CharacterListState.ShowError(failure = failureBo.toVo()))
     }
 
-    fun onCharacterItemClicked(item: CharacterVo) {
-        _screenState.value = ScreenState.Render(CharacterListState.ShowCharacterDetail(item))
-    }
 }

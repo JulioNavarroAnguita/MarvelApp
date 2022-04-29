@@ -50,6 +50,8 @@ object Libraries {
     const val cardview = "androidx.cardview:cardview:${Versions.cardView}"
     const val dxCore = "androidx.core:core-ktx:${Versions.coreDx}"
     const val encryptSharedPreferences = "androidx.security:security-crypto:${Versions.encryptSharedPreferences}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
 
     // Kotlin
     const val navigationFragment =

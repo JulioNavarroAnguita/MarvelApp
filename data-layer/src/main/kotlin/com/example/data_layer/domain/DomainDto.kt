@@ -32,4 +32,6 @@ sealed class FailureDto {
     class ServerError(val code: Int, val message: String?) : FailureDto()
     class ClientError(val code: Int, val message: String?) : FailureDto()
     class UnexpectedFailure(val code: Int, val localizedMessage: String?) : FailureDto()
+    object Unknown : FailureDto()
+
 }

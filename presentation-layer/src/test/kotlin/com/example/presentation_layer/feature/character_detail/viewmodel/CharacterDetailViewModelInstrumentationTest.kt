@@ -71,7 +71,7 @@ class CharacterDetailViewModelInstrumentationTest {
         id = -1,
         name = "none",
         description = "none",
-        thumbnail = getDummyThumbnailBo()
+        image = getDummyThumbnailBo()
     )
 
     private fun getDummyThumbnailBo() = ThumbnailBo(
