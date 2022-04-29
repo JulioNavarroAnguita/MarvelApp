@@ -82,7 +82,7 @@ class CharacterListViewModelInstrumentationTest {
             id = -1,
             name = "none",
             description = "none",
-            thumbnail = getDummyThumbnailBo()
+            image = getDummyThumbnailBo()
         )
     )
 

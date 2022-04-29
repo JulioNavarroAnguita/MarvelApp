@@ -12,9 +12,9 @@ import com.example.presentation_layer.domain.CharacterVo
 import com.example.presentation_layer.domain.FailureVo
 import com.example.presentation_layer.feature.character_detail.view.state.CharacterDetailState
 import com.example.presentation_layer.feature.character_detail.viewmodel.CharacterDetailViewModel
+import com.example.presentation_layer.utils.isNetworkAvailable
 import com.example.presentation_layer.utils.setImageFromUrlString
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
 private const val CHARACTER = "characterVo"
 
@@ -31,7 +31,7 @@ class CharacterDetailActivity : AppCompatActivity(),
         initModel()
         setContentView(viewBinding.root)
         initView()
-        viewModel.loadCharacterDetail(getArguments().id)
+        loadCharacter()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -39,14 +39,22 @@ class CharacterDetailActivity : AppCompatActivity(),
         return true
     }
 
-    private fun initView() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
     override fun processRenderState(renderState: CharacterDetailState?) {
         when (renderState) {
             is CharacterDetailState.ShowCharacterDetail -> showCharacterDetail(renderState.character)
             is CharacterDetailState.ShowError -> showError(renderState.failure)
+        }
+    }
+
+    private fun initView() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun loadCharacter() {
+        if (this@CharacterDetailActivity.isNetworkAvailable()) {
+            viewModel.loadCharacterDetail(getArguments().id)
+        } else {
+            viewModel.loadCharacterDetailFromDatabase(getArguments().id)
         }
     }
 
@@ -74,7 +82,7 @@ class CharacterDetailActivity : AppCompatActivity(),
     private fun showCharacterDetail(character: CharacterVo) {
         supportActionBar?.title = character.name
         with(viewBinding) {
-            characterImage.setImageFromUrlString(character.thumbnail.path + "." + character.thumbnail.extension)
+            characterImage.setImageFromUrlString(character.image)
             characterDescription.text = character.description.ifBlank { "No data" }
         }
     }

@@ -4,12 +4,7 @@ data class CharacterBo(
     val id: Int,
     val name: String,
     val description: String,
-    val thumbnail: ThumbnailBo
-)
-
-data class ThumbnailBo(
-    val path: String,
-    val extension: String
+    val image: String
 )
 
 data class DataBo<T>(
@@ -33,7 +28,8 @@ sealed class FailureBo {
     class ServerError(val code: Int, val message: String?) : FailureBo()
     class ClientError(val code: Int, val message: String?) : FailureBo()
     class UnexpectedFailure(val code: Int, val localizedMessage: String?) : FailureBo()
-    abstract class FeatureFailure : FailureBo()
+    object Unknown : FailureBo()
+
 }
 
 

@@ -10,7 +10,7 @@ class CharacterViewHolder(private val itemBinding: ItemCharacterAdapterBinding) 
     fun onBind(item: CharacterVo, callback: (CharacterVo) -> Unit) {
         with(itemBinding) {
             nameCharacter.text = item.name
-            imageCharacte.setImageFromUrlString(item.thumbnail.path + "." + item.thumbnail.extension)
+            imageCharacte.setImageFromUrlString(item.image)
         }
         itemView.setOnClickListener { callback(item) }
     }
