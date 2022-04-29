@@ -21,14 +21,11 @@ interface DomainLayerContract {
     }
 
     interface DataLayer {
-
-        companion object {
-            const val CHARACTER_REPOSITORY_TAG = "characterRepository"
-        }
-
         interface CharacterRepository {
             suspend fun fetchCharacters(): Either<FailureBo, List<CharacterBo>>
+            suspend fun getCharactersFromDatabase(): Either<FailureBo, List<CharacterBo>>
             suspend fun fetchCharacterDetail(params: Int): Either<FailureBo, CharacterBo>
+            suspend fun getCharacterDetailFromDatabase(params: Int): Either<FailureBo, CharacterBo>
         }
     }
 

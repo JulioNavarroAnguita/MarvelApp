@@ -16,6 +16,7 @@ import com.example.presentation_layer.feature.character_list.view.adapter.Charac
 import com.example.presentation_layer.feature.character_list.view.state.CharacterListState
 import com.example.presentation_layer.feature.character_list.viewmodel.CharacterListViewModel
 import com.example.presentation_layer.feature.character_detail.view.ui.CharacterDetailActivity
+import com.example.presentation_layer.utils.isNetworkAvailable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val CHARACTER = "characterVo"
@@ -33,7 +34,7 @@ class CharacterListActivity : AppCompatActivity(),
         viewBinding = ActivityCharacterListBinding.inflate(layoutInflater)
         initModel()
         setContentView(viewBinding.root)
-        initView()
+        loadCharacters()
     }
 
     override fun processRenderState(renderState: CharacterListState?) {
@@ -68,8 +69,12 @@ class CharacterListActivity : AppCompatActivity(),
         viewBinding.tvNoData.visibility = View.VISIBLE
     }
 
-    private fun initView() {
-        viewModel.loadCharacters()
+    private fun loadCharacters() {
+        if (this@CharacterListActivity.isNetworkAvailable()) {
+            viewModel.loadCharacters()
+        } else {
+            viewModel.loadCharactersFromDatabase()
+        }
     }
 
     private fun hideLoading() {

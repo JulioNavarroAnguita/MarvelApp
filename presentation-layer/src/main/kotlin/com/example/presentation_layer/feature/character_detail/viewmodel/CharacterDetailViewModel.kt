@@ -22,6 +22,13 @@ class CharacterDetailViewModel(
         }
     }
 
+    fun loadCharacterDetailFromDatabase(characterId: Int) {
+        viewModelScope.launch {
+            _screenState.value = ScreenState.Loading
+            bridge.getCharacterDetailFromDatabase(params = characterId).fold(::handleError, ::handleSuccess)
+        }
+    }
+
     private fun handleSuccess(character: CharacterBo) {
         _screenState.value =
             ScreenState.Render(CharacterDetailState.ShowCharacterDetail(character.boToVo()))

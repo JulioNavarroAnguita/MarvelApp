@@ -10,17 +10,17 @@ private const val HASH = "751d116d30cb878c764d95954fc8eef4"
 private const val TS = "1"
 private const val LIMIT = 100
 
-class CharacterDataSource(private val retrofit: Retrofit) :
-    DataLayerContract.CharacterDataSource {
+class CharacterRemoteDataSource(private val retrofit: Retrofit) :
+    DataLayerContract.CharacterDataSource.Remote {
 
-    override suspend fun fetchCharacters(): Response<ResponseMarvelDto<CharacterDto>> =
+    override suspend fun fetchCharactersFromApi(): Response<ResponseMarvelDto<CharacterDto>> =
         retrofit.create(MarvelService::class.java).fetchCharactersAsync(
             hash = HASH,
             ts = TS,
             limit = LIMIT
         ).await()
 
-    override suspend fun fetchCharacterDetail(characterId: Int): Response<ResponseMarvelDto<CharacterDto>> =
+    override suspend fun fetchCharacterDetailFromApi(characterId: Int): Response<ResponseMarvelDto<CharacterDto>> =
         retrofit.create(MarvelService::class.java).fetchCharacterDetailAsync(
             characterId = characterId,
             hash = HASH,

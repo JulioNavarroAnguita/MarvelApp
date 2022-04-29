@@ -1,7 +1,7 @@
 package com.example.data_layer.repository
 
 import arrow.core.Either
-import com.example.data_layer.datasource.CharacterDataSource
+import com.example.data_layer.datasource.CharacterRemoteDataSource
 import com.example.data_layer.domain.CharacterDto
 import com.example.data_layer.domain.DataDto
 import com.example.data_layer.domain.ResponseMarvelDto
@@ -29,7 +29,7 @@ private const val ONE = 1
 class CharacterRepositoryImplTest {
 
     @MockK
-    private lateinit var mockDataSource: CharacterDataSource
+    private lateinit var mockDataSource: CharacterRemoteDataSource
     private lateinit var characterRepository: CharacterRepositoryImpl
 
     @Before
@@ -42,13 +42,13 @@ class CharacterRepositoryImplTest {
     fun `when 'fetchCharacters' is successful, response is a list of characterBo type`() =
         runBlockingTest {
             // given
-            coEvery { mockDataSource.fetchCharacters() } returns Response.success(
+            coEvery { mockDataSource.fetchCharactersFromApi() } returns Response.success(
                 getDummyResponseMarvelDto()
             )
             // when
             val response = characterRepository.fetchCharacters()
             // then
-            coVerify(exactly = ONE) { mockDataSource.fetchCharacters() }
+            coVerify(exactly = ONE) { mockDataSource.fetchCharactersFromApi() }
             assert(response.isRight() && response is Either.Right<List<CharacterBo>>)
         }
 
@@ -56,25 +56,25 @@ class CharacterRepositoryImplTest {
     fun `when 'fetchCharacters' is successful, but response is a null object failure is returned`() =
         runBlockingTest {
             // given
-            coEvery { mockDataSource.fetchCharacters() } returns Response.success(null)
+            coEvery { mockDataSource.fetchCharactersFromApi() } returns Response.success(null)
             // when
             val response = characterRepository.fetchCharacters()
             // then
-            coVerify(exactly = ONE) { mockDataSource.fetchCharacters() }
+            coVerify(exactly = ONE) { mockDataSource.fetchCharactersFromApi() }
             assert(response.isLeft() && (response as? Either.Left<FailureBo>)?.a is FailureBo.UnexpectedFailure)
         }
 
     @Test
     fun `when 'fetchCharacters' is not successful, failure is returned`() = runBlockingTest {
         // given
-        coEvery { mockDataSource.fetchCharacters() } returns Response.error(
+        coEvery { mockDataSource.fetchCharactersFromApi() } returns Response.error(
             CODE_ERROR,
             DEFAULT_STRING_VALUE.toResponseBody("text/plain".toMediaTypeOrNull())
         )
         // when
         val response = characterRepository.fetchCharacters()
         // then
-        coVerify(exactly = ONE) { mockDataSource.fetchCharacters() }
+        coVerify(exactly = ONE) { mockDataSource.fetchCharactersFromApi() }
         assert(response.isLeft() && (response as? Either.Left<FailureBo>)?.a is FailureBo.UnexpectedFailure)
     }
 
@@ -82,13 +82,13 @@ class CharacterRepositoryImplTest {
     fun `when 'fetchCharacterDetail' is successful, response is a object characterBo type`() =
         runBlockingTest {
             // given
-            coEvery { mockDataSource.fetchCharacterDetail(any()) } returns Response.success(
+            coEvery { mockDataSource.fetchCharacterDetailFromApi(any()) } returns Response.success(
                 getDummyResponseMarvelDto()
             )
             // when
             val response = characterRepository.fetchCharacterDetail(ONE)
             // then
-            coVerify(exactly = ONE) { mockDataSource.fetchCharacterDetail(any()) }
+            coVerify(exactly = ONE) { mockDataSource.fetchCharacterDetailFromApi(any()) }
             assert(response.isRight() && response is Either.Right<CharacterBo>)
         }
 
@@ -96,25 +96,25 @@ class CharacterRepositoryImplTest {
     fun `when 'fetchCharacterDetail' is successful, but response is a null object failure is returned`() =
         runBlockingTest {
             // given
-            coEvery { mockDataSource.fetchCharacterDetail(any()) } returns Response.success(null)
+            coEvery { mockDataSource.fetchCharacterDetailFromApi(any()) } returns Response.success(null)
             // when
             val response = characterRepository.fetchCharacterDetail(ONE)
             // then
-            coVerify(exactly = ONE) { mockDataSource.fetchCharacterDetail(any()) }
+            coVerify(exactly = ONE) { mockDataSource.fetchCharacterDetailFromApi(any()) }
             assert(response.isLeft() && (response as? Either.Left<FailureBo>)?.a is FailureBo.UnexpectedFailure)
         }
 
     @Test
     fun `when 'fetchCharacterDetail' is not successful, failure is returned`() = runBlockingTest {
         // given
-        coEvery { mockDataSource.fetchCharacterDetail(any()) } returns Response.error(
+        coEvery { mockDataSource.fetchCharacterDetailFromApi(any()) } returns Response.error(
             CODE_ERROR,
             DEFAULT_STRING_VALUE.toResponseBody("text/plain".toMediaTypeOrNull())
         )
         // when
         val response = characterRepository.fetchCharacterDetail(ONE)
         // then
-        coVerify(exactly = ONE) { mockDataSource.fetchCharacterDetail(any()) }
+        coVerify(exactly = ONE) { mockDataSource.fetchCharacterDetailFromApi(any()) }
         assert(response.isLeft() && (response as? Either.Left<FailureBo>)?.a is FailureBo.UnexpectedFailure)
     }
 

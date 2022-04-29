@@ -39,7 +39,7 @@ class FetchCharactersUcTest {
             id = -1,
             name = "none",
             description = "none",
-            thumbnail = getDummyThumbnailBo()
+            image = getDummyThumbnailBo()
         )
     )
 

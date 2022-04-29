@@ -46,8 +46,10 @@ dependencies {
     implementation(Libraries.moshiKotlin)
     implementation(Libraries.interceptor)
     kapt(Libraries.moshiKotlinCodegen)
+    implementation(Libraries.roomKtx)
+    kapt(Libraries.roomCompiler)
 
-    // room
+    // shared preferences
     implementation(Libraries.encryptSharedPreferences)
     // testing dependencies - Unit Test
     testImplementation(Libraries.junit)
